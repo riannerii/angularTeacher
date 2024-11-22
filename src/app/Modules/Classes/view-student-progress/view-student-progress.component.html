@@ -1,0 +1,68 @@
+<div class="container align-self-center p-3 bg-white rounded">
+    <h2 class="text-center mb-5" style="font-weight: 500;">Student Progress</h2>
+
+    <div class="table-responsive col-md-12">
+            <table *ngIf="classInfo[0].grade_level >= 7 && classInfo[0].grade_level <= 10" 
+                   class="table table-bordered attendance-table">
+                <thead class="table-light">
+                    <tr>
+                        <th rowspan="2" class="text-center align-middle" style="width: 30%;">Student Name</th>
+                        <th colspan="4" class="text-center" style="width: 60%;">Grading Period</th>
+                    </tr>
+                    <tr class="text-center">
+                        <th style="width: 15%;">First Quarter</th>
+                        <th style="width: 15%;">Second Quarter</th>
+                        <th style="width: 15%;">Third Quarter</th>
+                        <th style="width: 15%;">Fourth Quarter</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let cl of gradeInfo">
+                        <td class="text-start">{{ cl.student_lname }}, {{ cl.student_fname }}</td>
+                        <td class="text-center">
+                            <input type="text" class="form-control" [(ngModel)]="cl.grade_Q1"
+                                (ngModelChange)="updateGrade(cl.LRN, 'First Quarter', cl.grade_Q1)" />
+                        </td>
+                        <td class="text-center">
+                            <input type="text" class="form-control" [(ngModel)]="cl.grade_Q2"
+                                (ngModelChange)="updateGrade(cl.LRN, 'Second Quarter', cl.grade_Q2)" />
+                        </td>
+                        <td class="text-center">
+                            <input type="text" class="form-control" [(ngModel)]="cl.grade_Q3"
+                                (ngModelChange)="updateGrade(cl.LRN, 'Third Quarter', cl.grade_Q3)" />
+                        </td>
+                        <td class="text-center">
+                            <input type="text" class="form-control" [(ngModel)]="cl.grade_Q4"
+                                (ngModelChange)="updateGrade(cl.LRN, 'Fourth Quarter', cl.grade_Q4)" />
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <table *ngIf="classInfo[0].grade_level == 11 || classInfo[0].grade_level == 12" class="table table-bordered attendance-table">
+                <thead class="table-light">
+                    <tr>    
+                        <th rowspan="2" class="text-center align-middle" style="width: 30%;">Student Name</th>
+                        <th colspan="2" class="text-center" style="width: 60%;">Grading Period</th>
+                    </tr>
+                    <tr class="text-center">
+                        <th style="width: 30%;">Midterms</th>
+                        <th style="width: 30%;">Final</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let cl of gradeInfo">
+                        <td class="text-start">{{ cl.student_lname }}, {{ cl.student_fname }}</td>
+                        <td class="text-center">
+                            <input type="text" class="form-control" [(ngModel)]="cl.grade_midterm"
+                                (ngModelChange)="updateGrade(cl.LRN, 'Midterm', cl.grade_midterm)" />
+                        </td>
+                        <td class="text-center">
+                            <input type="text" class="form-control" [(ngModel)]="cl.grade_final"
+                                (ngModelChange)="updateGrade(cl.LRN, 'Final', cl.grade_final)" />
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+    </div>
+</div>

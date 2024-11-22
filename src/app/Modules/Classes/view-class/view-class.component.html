@@ -1,0 +1,32 @@
+<div class="container mt-3 mb-4 ms-1">
+    <p class="h2" style="font-weight: 600;">My Classes </p>
+</div>
+
+<!-- List of Subjects Assigned to a Teacher -->
+<div class="container">
+    <div class="row g-4">
+            @for (cl of classes; track cl){
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="card h-100">
+                        <img src="{{cl.image}}" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <div class="text-section"> 
+                                <!-- when name of subject is clicked it will be directed to the roster of that subject -->
+                                <a class="link-primary link-offset-2 link-offset-1-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover h4" [routerLink]="['/main/classes/classespage/viewsubject/', cl.class_id]">
+                                    {{cl.subject_name}} {{cl.grade_level}} {{cl.strand}}
+                                </a>
+                                
+                                <p class="h6 ms-1 m-1">Section: <small class="text-body-secondary">{{cl.section_name}}</small> </p> 
+                                <p class="h6 ms-1 m-1">Room: <small class="text-body-secondary">{{cl.room}}</small> </p> 
+                                <p class="h6 ms-1 m-1">Schedule: 
+                                    <small class="text-body-secondary">{{cl.schedule}}</small> 
+                                </p>  
+                            </div>
+                        </div> 
+                    </div>
+                </div>
+            }   
+    </div>
+</div>
+
+

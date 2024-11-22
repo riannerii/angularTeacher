@@ -1,0 +1,61 @@
+<div class="container align-self-center p-3 bg-white rounded">
+    <h2 class="text-center mb-4">Grade Entry</h2>
+    <div class="d-flex justify-content-center mb-4">
+        <div class="text-center">
+            <!-- <p class="mb-2">Select grading period:</p> -->
+            <select class="custom-select mx-auto" name="grading-period" id="grading-period">
+                <option value="" selected disabled>Select Grading Period</option>
+                <option value="first">First Grading</option>
+                <option value="second">Second Grading</option>
+                <option value="third">Third Grading</option>
+                <option value="fourth">Fourth Grading</option>
+            </select>
+        </div>
+    </div>
+    
+    <div class="table-responsive col-md-12">
+        <table class="table table-bordered attendance-table">
+            <thead class="table-light">
+                <tr>
+                    <th class="text-center align-middle">LRN#</th>
+                    <th class="text-center align-middle">Student Name</th>
+                    <th class="text-center">Grade</th>
+                </tr>
+              
+            </thead>
+            <tbody class="text-center"> 
+                <tr>
+                    <th>120001234567</th>
+                    <td>Miko Ofiaza</td>
+                    <td><input type="text" class="form-control text-center" name=""></td>
+                </tr>
+                <tr>
+                    <th>140001234567</th>
+                    <td>Glenson Lozada</td>
+                    <td><input type="text" class="form-control text-center" name=""></td>
+                </tr>
+                <tr>
+                    <th>130001234567</th>
+                    <td>Arjay Subido</td>
+                    <td><input type="text" class="form-control text-center" name=""></td>
+                </tr>
+                <tr>
+                    <th>150001234567</th>
+                    <td>Jhonnel Manaois</td>
+                    <td><input type="text" class="form-control text-center" name=""></td>
+                </tr>
+                <tr>
+                    <th>110001234567</th>
+                    <td>Dionece Collano</td>
+                    <td><input type="text" class="form-control text-center" name=""></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="text-center">
+        <button type="button" class="btn btn-primary mt-3"
+            [routerLink]="['/main/classes/classespage/viewsubject/viewstudentProg']">Submit Grades</button>
+    </div>
+</div>
+
+

@@ -1,0 +1,19 @@
+.custom-select {
+   
+    border: 1px solid #dcdcdc; /* Blue border */
+    border-radius: 0.375rem; /* Rounded corners */
+    padding: 0.375rem 0.75rem; /* Padding inside the select */
+    font-size: 1rem; /* Font size */
+    color: #000000; /* Text color */
+}
+
+   /* Custom styles to adjust column widths */
+   .attendance-table th:nth-child(2), 
+   .attendance-table td:nth-child(2) {
+       width: 60%; /* Adjust width for Student Name column */
+   }
+
+   .attendance-table th:nth-child(3), 
+   .attendance-table td:nth-child(3) {
+       width: 5%; /* Adjust width for Grade column */
+   }

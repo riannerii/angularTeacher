@@ -1,0 +1,34 @@
+.table thead th, .table tbody td {
+    text-align: center;
+    vertical-align: middle;
+    padding: 8px;
+}
+
+.table th, .table td {
+    text-align: center;
+    vertical-align: middle;
+}
+.table td.date-column, .table th.date-column {
+    width: 3%; /* Adjust this percentage as needed */
+}
+
+.day-column {
+    width: 10%;
+}
+
+.legend-item {
+    font-size: 14px;
+  }
+  
+  .legend-color {
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    margin-right: 5px;
+    border-radius: 50%;
+  }
+  
+  .legend-text {
+    font-weight: normal;
+  }
+  

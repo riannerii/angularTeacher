@@ -1,0 +1,91 @@
+/* .table thead th, .table tbody td {
+    text-align: center;
+    vertical-align: middle;
+    padding: 8px;
+}
+
+.table th, .table td {
+    text-align: center;
+    vertical-align: middle;
+}
+.table td.date-column, .table th.date-column {
+    width: 3%; 
+} */
+
+.container {
+    max-width: 700px;
+  }
+  
+  h4 {
+    margin: 0;
+  }
+  
+  .row {
+    margin-left: 0;
+    margin-right: 0;
+  }
+  
+  .col {
+    padding: 0;
+  }
+  
+  .border {
+    border: 1px solid #ddd;
+  }
+  
+  .text-center {
+    line-height: 2rem;
+  }
+  
+  .clickable-day {
+    cursor: pointer;
+    background-color: #f9f9f9;
+  }
+  
+  .clickable-day:hover {
+    background-color: #e9ecef;
+    border-color: #ddd;
+  }
+  
+  .text-muted {
+    color: #cccccc;
+  }
+  
+  /* Modal styles */
+  .modal {
+    display: none;
+    position: fixed;
+    z-index: 1050;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+  
+  .modal-dialog {
+    max-width: 500px;
+    margin: 100px auto;
+  }
+  
+  .modal-content {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 4px;
+  }
+  
+  .modal-header, .modal-footer {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .modal-footer {
+    border-top: 1px solid #ddd;
+    padding-top: 10px;
+  }
+  
+  ul {
+    padding-left: 20px;
+  }
+  

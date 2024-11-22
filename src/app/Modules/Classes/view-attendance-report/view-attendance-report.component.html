@@ -1,0 +1,75 @@
+<div class="container align-self-center p-4">
+  <h2 class="text-center mb-1" style="font-weight: 500;">Check Attendance</h2>
+
+  <div class="text-center mb-1">
+    <p class="fw-bold">Date Today: <span style="font-weight: normal;">{{currentDate}}</span></p>
+  </div>
+
+  <div class="d-flex justify-content-end mb-1">
+
+    <!-- Legend for Attendance Colors -->
+    <div class="d-flex align-items-center ms-3">
+      <div class="legend-item d-flex align-items-center me-2">
+        <span class="legend-color" style="background-color: gray;"></span>
+        <span class="legend-text">No Record</span>
+      </div>
+      <div class="legend-item d-flex align-items-center me-2">
+        <span class="legend-color" style="background-color: green"></span>
+        <span class="legend-text">Present</span>
+      </div>
+      <div class="legend-item d-flex align-items-center me-2">
+        <span class="legend-color" style="background-color: orange"></span>
+        <span class="legend-text">Late</span>
+      </div>
+      <div class="legend-item d-flex align-items-center">
+        <span class="legend-color" style="background-color: red"></span>
+        <span class="legend-text">Absent</span>
+      </div>
+    </div>
+
+    <!-- Button to go to the previous week -->
+    <button class="btn btn-lg me-2" (click)="onPreviousWeek()">
+      <i class="fa-solid fa-circle-chevron-left"></i>
+    </button>
+  
+    <!-- Button to go to the next week -->
+    <button class="btn btn-lg" (click)="onNextWeek()">
+      <i class="fa-solid fa-circle-chevron-right"></i>
+    </button>
+  </div>
+  
+  <div class="container-fluid mt-1">
+    <div class="table-responsive">
+      <table class="table table-bordered text-center">
+        <thead class="table-light">
+          <tr>
+            <th colspan="24" class="text-center p-2 fw-bold" style="text-transform: uppercase; background-color: #3dcbffc8;">
+              {{ months[today.getMonth()] }}
+            </th>
+          </tr>
+          <tr>
+            <th rowspan="2" class="align-middle" style="width: 5%;">No.</th>
+            <th rowspan="2" class="align-middle" style="width: 20%;">Name</th>
+            <th colspan="22">Day</th>
+          </tr> 
+          <tr>
+            <th *ngFor="let day of weekdays; let d = index" class="day-column">
+              {{ days[d] }} 
+              <br><span style="font-weight: normal;">{{ d + today.getDate() - (today.getDay() - 1) }}</span>
+            </th>
+          </tr>
+        </thead> 
+        <tbody>
+          <tr *ngFor="let student of students; let i = index">
+            <td>{{ i + 1 }}</td>
+            <td class="text-start">{{ student.name }}</td>
+            <td *ngFor="let day of weekdays; let d = index"
+                (click)="handleClick(i, d)"
+                [ngStyle]="{'background-color': colors[student.attendance[d]?.status || 0]}"> 
+              <!-- {{ student.attendance[d]?.day | date: 'MMMM d, yyyy' }} -->
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
