@@ -51,6 +51,7 @@ export class MainpageComponent implements OnInit {
   ngOnInit(): void {
     this.loadUserData();
 
+    
     // Subscribe to BreakpointObserver to watch screen size changes
     this.breakpointObserver.observe([Breakpoints.Small, Breakpoints.XSmall]).subscribe((result) => {
       this.isSmallScreen = result.matches; // Update isSmallScreen based on match
