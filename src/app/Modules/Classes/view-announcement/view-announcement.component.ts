@@ -5,11 +5,14 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { ActivatedRoute, Router, RouterLink, RouterModule } from '@angular/router';
 // import Swal from 'sweetalert2'; 
 import { ConnectService } from '../../../connect.service';
+import { ViewStudentProgressComponent } from "../view-student-progress/view-student-progress.component";
+import { PostAnnouncementComponent } from "../post-announcement/post-announcement.component";
+import { AnnouncementlistComponent } from "../announcementlist/announcementlist.component";
 
 @Component({
   selector: 'app-view-announcement',
   standalone: true,
-  imports: [MatExpansionModule, CommonModule, ReactiveFormsModule, RouterModule, FormsModule],
+  imports: [MatExpansionModule, CommonModule, ReactiveFormsModule, RouterModule, FormsModule, PostAnnouncementComponent, AnnouncementlistComponent],
   templateUrl: './view-announcement.component.html',
   styleUrl: './view-announcement.component.css'
 })

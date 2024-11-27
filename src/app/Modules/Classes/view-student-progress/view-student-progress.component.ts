@@ -13,58 +13,100 @@ import { FormsModule } from '@angular/forms';
 })
 export class ViewStudentProgressComponent implements OnInit {
   classInfo: any;
-  gradeInfo:any;
- 
-  constructor(
-    private klase: ConnectService, 
-    private aroute: ActivatedRoute)
-  {}
- 
-  ngOnInit(): void {
-    console.log("VIEW STUDENT PROGRESS")
-    const cid = this.aroute.snapshot.parent?.paramMap.get('cid')
-      this.getClassInfo(cid);
-      this.getClassGrades(cid); 
-  }
-  
+  gradeInfo: any;
 
-  getClassInfo(cid:any){
+  constructor(
+    private klase: ConnectService,
+    private aroute: ActivatedRoute
+  ) {}
+
+  ngOnInit(): void {
+    console.log("VIEW STUDENT PROGRESS");
+    const cid = this.aroute.snapshot.parent?.paramMap.get('cid');
+    this.getClassInfo(cid);
+    this.getClassGrades(cid);
+    console.warn(cid);
+  }
+
+  getClassInfo(cid: any) {
     this.klase.getClassInfo(cid).subscribe((result: any) => {
       this.classInfo = result;
       // console.warn('Class Info');
       // console.warn(this.classInfo);
-    })  
-  } 
+    });
+  }
 
-  getClassGrades(cid:any) {
+  getClassGrades(cid: any) {
     this.klase.getClassGrades(cid).subscribe((result: any) => {
       this.gradeInfo = result;
-      console.warn(this.gradeInfo); 
-      }) 
+      console.warn(this.gradeInfo);
+    });
   }
-  
+
   updateGrade(LRN: string, term: string, grade: number) {
-    console.warn(LRN)
-      const cid = this.aroute.snapshot.parent?.paramMap.get('cid')!;
-      const payload = {
-        
-        grades: [
-          { LRN: String(LRN), term, grade: Number(grade) }
-        ]
-      
-      };
-      console.log('Payload:', payload); 
-  
-      this.klase.updateClassGrades(cid, payload).subscribe((response: any) => {
+    console.warn(LRN);
+    const cid = this.aroute.snapshot.parent?.paramMap.get('cid')!;
+    const payload = {
+      grades: [
+        {
+          LRN: String(LRN),
+          term,
+          grade: Number(grade),
+          permission: 'none'
+        }
+      ]
+    };
+    console.log('Payload:', payload);
+
+    this.klase.updateClassGrades(cid, payload).subscribe(
+      (response: any) => {
         console.log(response.message);
-      }, (error) => {
+      },
+      (error) => {
         console.error('Error updating grade', error);
-      });
-    }
-    
-   
+      }
+    );
   }
 
-  
+  editRequestActive: boolean = false; // Track the visibility of Edit buttons
 
- 
+  // Toggle visibility of Edit buttons
+  toggleEditRequest() {
+    this.editRequestActive = !this.editRequestActive;
+  }
+
+  // Function to handle updating permission
+  editGradePermission(LRN: string, term: string, grade: number) {
+    const cid = this.aroute.snapshot.parent?.paramMap.get('cid')!; // Get the class ID (cid) from the route
+
+    // Construct the payload to match the structure of `updateGrade`
+    const payload = {
+      grades: [
+        {
+          LRN: String(LRN),
+          term,
+          grade: Number(grade),
+          permission: 'pending'
+        }
+      ]
+    };
+
+    console.log('Payload:', payload); // Log the payload for debugging
+
+    // Call the `updateClassGrades` method (or the appropriate API method) with the payload
+    this.klase.updateClassGrades(cid, payload).subscribe(
+      (response: any) => {
+        console.log('Permission updated to pending', response);
+
+        // Update the permission locally after a successful response
+        const student = this.gradeInfo.find((cl: { LRN: string }) => cl.LRN === LRN);
+        if (student) {
+          student[`permission_${term}`] = 'pending'; // Update the permission field locally
+        }
+      },
+      (error) => {
+        console.error('Error updating permission', error);
+      }
+    );
+  }
+}

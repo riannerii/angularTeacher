@@ -45,6 +45,7 @@ mat-sidenav {
   
   mat-sidenav.collapsed {
     width: 65px;
+    
   }
   
 

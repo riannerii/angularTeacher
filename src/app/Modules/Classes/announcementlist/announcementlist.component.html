@@ -1,0 +1,65 @@
+<div class="row">
+    <div class="col-lg-4">
+        <section class="announcement-form">
+            <h2>Post a New Announcement</h2>
+            <form [formGroup]="announcementform" (ngSubmit)="postannouncement()" id="announcementForm">
+                
+                <div class="container" style="display: none;">
+                    <div class="form-group">
+                        <label for="adminid">adminid:</label>
+                        <input type="number" id="adminid" formControlName="admin_id" name="adminid" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="classid">classid:</label>
+                        <input type="number" id="classid" formControlName="class_id" name="classid" value={{classInfo[0].class_id}} required>
+                    </div>
+                </div> 
+        
+                <div class="form-group">
+                    <label for="title">Title:</label>
+                    <input type="text" id="title" formControlName="title" name="title" required>
+                </div>
+                <div class="form-group">
+                    <label for="announcement">Message:</label>
+                    <textarea id="announcement" name="announcement" formControlName="announcement" rows="3" required></textarea>
+                </div>
+                <button type="submit">Post</button>
+            </form>
+        </section>
+    </div>
+   
+    <div class="col-lg-8">
+        <div class="container">
+            <div class="table-container">
+                <section class="announcement-list">
+                    <h2>
+                        Announcements
+                    </h2>
+                    <hr />
+        
+                    <div id="announcementsContainer">
+                        @for (ann of announcements; track ann) {
+                            <div class="announcement"> 
+                                <div class="announcement-header">
+                                    <h3>{{ ann.title }}</h3>
+                                    <span class="date">
+                                        {{ ann.created_at | date: 'medium' }}
+                                    </span>
+                                    <div class="announcement-actions ms-3">
+                                        <!-- <a class="edit" (click)="editAnnouncement(ann)"><i class="fa-solid fa-pencil"></i></a> -->
+                                        <a class="delete"><i class="fa-solid fa-trash" (click)="onDelete(ann.ancmnt_id)"></i></a>
+                                    </div>
+                                    
+                                </div>
+                                <p class="announcement-p">{{ ann.announcement }}</p>
+                            </div>
+                        }
+                    </div>
+                </section>  
+            </div>
+        </div>
+    </div>
+   
+</div>
+
+ 

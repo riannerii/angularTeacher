@@ -71,26 +71,11 @@ export class SidenavComponent implements OnInit {
       label: 'My Classes',
       route: 'classes'
     },
-    // {
-    //   icon: 'campaign',
-    //   label: 'Announcements',
-    //   route: 'announcement' 
-    // },
     {
       icon: 'message',
       label: 'Messages',
       route: 'messages'
     },
-    // {
-    //   icon: 'account_circle',
-    //   label: 'My Account',
-    //   route: 'account'
-    // },
-    // {
-    //   icon: 'logout',
-    //   label: 'Logout',
-    //   route: 'login'
-    // }
   ])
 
   profilePicSize = computed (() => this.sideNavCollapsed() ? '32' : '100');

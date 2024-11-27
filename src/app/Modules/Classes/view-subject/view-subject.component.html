@@ -11,12 +11,13 @@
                       <div class="text-section">
                         <!-- when name of subject is clicked it will be directed to the roster of that subject -->
                         <p class="fw-bold text-primary link-offset-2 link-offset-1-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover h4" routerLink="['/main/classes/classespage/viewsubject']">
-                            {{classInfo[0].subject_name}} {{classInfo[0].grade_level}} {{classInfo[0].strand}}
+                            {{classInfo[0].subject_name}} {{classInfo[0].grade_level}} {{classInfo[0].strand === '-' ? ' ' : classInfo[0].strand}}
                         </p>
                         <p class="h6 ms-1 m-1">Section: <small class="text-body-secondary">{{classInfo[0].section_name}}</small> </p> 
                         <p class="h6 ms-1 m-1">Room: <small class="text-body-secondary">{{classInfo[0].room}}</small> </p> 
+                        <p class="h6 ms-1 m-1">Time: <small class="text-body-secondary">{{classInfo[0].time}}</small> </p> 
                         <p class="h6 ms-1 m-1">Schedule: <small class="text-body-secondary">{{classInfo[0].schedule}}</small> </p> 
-                    </div>
+                    </div> 
 
                     </div>
                 </div>
@@ -26,12 +27,12 @@
                     <div class="card-body">
                       <div class="nav-section">
                         <nav>
-                          <ul class="navbar nav"> 
+                          <ul class="navbar nav" style="font-weight: 600;"> 
                               <li><a class="navlink" 
                                 [routerLink]="['viewroster']"
                                 routerLinkActive="active-link"> 
                                 <i class="fa-solid fa-list-ol me-2"></i>Roster List</a>
-                              </li>
+                              </li> 
                              
                               <li><a class="navlink" 
                                 [routerLink]="['viewattendanceReport']"
@@ -44,7 +45,7 @@
                                 <i class="fa-solid fa-medal me-2"></i>Grades</a>
                               </li>
                               <li><a class="navlink" 
-                                [routerLink]="['viewannouncement']"
+                                [routerLink]="['announcementlist']"
                                 routerLinkActive="active-link">
                                 <i class="fa-solid fa-bullhorn me-2"></i>Announcements</a>
                               </li>

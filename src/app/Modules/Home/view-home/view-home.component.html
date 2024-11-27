@@ -1,109 +1,42 @@
-<!-- <div class="container mb-5 ms-1">
-  <p class="h1">{{ getGreeting() }} Rianne Agnieka!</p>
-  <p class="h5 ms-1">{{currentDay}} <small class="text-body-secondary">{{currentDate}}</small> </p> 
-</div> -->
-
-<!-- <p class="container h4 ms-2 text-start">My Classes Today</p>
-<div class="container">
-  <div class="row g-4">
-    @for (cl of classes; track cl){
-      <div class="col-12 col-md-6 col-lg-4">
-          <div class="card h-100">
-              <img src="{{cl.image}}" class="card-img-top" alt="...">
-              <div class="card-body">
-                  <div class="text-section">  -->
-                      <!-- when name of subject is clicked it will be directed to the roster of that subject -->
-                      <!-- <a class="link-primary link-offset-2 link-offset-1-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover h4" [routerLink]="['/main/classes/classespage/viewsubject/', cl.class_id]">
-                          {{cl.subject_name}} {{cl.grade_level}} {{cl.strand}}
-                      </a> -->
-                      
-                      <!-- <p class="h6 ms-1 m-1">Section: <small class="text-body-secondary">{{cl.section_name}}</small> </p> 
-                      <p class="h6 ms-1 m-1">Room: <small class="text-body-secondary">{{cl.room}}</small> </p> 
-                      <p class="h6 ms-1 m-1">Schedule: 
-                          <small class="text-body-secondary">{{cl.schedule}}</small> 
-                      </p> 
-                  </div>
-              </div> 
-          </div>
-      </div>
-    }   
-  </div>
-</div> -->
-
-
-
-<!-- <p class="container h4 ms-2 text-start mt-4">Recent Inquiries</p>
-<div class="container align-self-center p-3 bg-white rounded" >
-  <div class="row">
-    <div class="table-responsive col-md-12">
-      <table class="table table-hover" style="border-radius: 50%;">
-        <thead class="table">
-          <tr>
-            <th scope="col">Sender</th>
-            <th scope="col">Message</th>
-            <th scope="col"></th>
-            <th scope="col"></th>
-            <th class="text-center" scope="col">Date</th>
-          </tr>
-        </thead>
-        <tbody class="table-group-divider">
-          <tr [routerLink]="['/main/messages/messagepage/viewmessages']">
-            <th scope="row">Miko Ofiaza</th>
-            <td class="text-body-secondary" colspan="3">When is our card day?</td>
-            <td class="text-center">04-04-2024</td>
-          </tr>
-          <tr [routerLink]="['/main/messages/messagepage/viewmessages']">
-            <th scope="row">Arjay Subido</th>
-            <td class="text-body-secondary" colspan="3">May pasok po ba?</td>
-            <td class="text-center">04-04-2024</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-</div> -->
-
 <div class="container">
   <div class="banner">
     <div class="text-content">
       <div class="date">{{currentDay}}, {{ currentDate}}</div>
       <h1 class="welcome-message">{{ getGreeting() }} {{ fname }}!</h1>
-      <!-- <p class="subtext">Always stay updated in your student portal</p> -->
     </div>
     <div class="illustration">
-      <!-- Placeholder for the 3D illustration -->
       <img src="aaa.png" alt="Illustration">
     </div>
   </div>
    
   <div class="row mt-4">
         <div class="dash-col">
-          <h3>My Classes Today</h3>
+          <h3 class="mb-3">My Classes Today</h3>
           <div class="row">
             @for (cl of classes; track cl){ 
-              <div class="col-md-6">
-                <div class="card1 mb-3 bg-c-white order-card">
+              <div class="col-lg-6">
+                <div class="card1 mb-3 bg-c-white order-card" [routerLink]="['/main/classes/classespage/viewsubject/', cl.class_id]">
                   <div class="card-body">
                     <img src="{{cl.image}}" class="card-img-top" alt="...">
                     <div class="text-section">
-                      <!-- when name of subject is clicked it will be directed to the roster of that subject -->
-                      <a class="link-primary link-offset-2 link-offset-1-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover h4" [routerLink]="['/main/classes/classespage/viewsubject/', cl.class_id]">
-                          {{cl.subject_name}} {{cl.grade_level}} {{cl.strand}}
-                      </a>
-                      
-                      <p class="h6 ms-1 m-1 text-dark">Section: <small class="text-body-secondary">{{cl.section_name}}</small> </p> 
-                      <p class="h6 ms-1 m-1 text-dark">Room: <small class="text-body-secondary">{{cl.room}}</small> </p> 
-                      <p class="h6 ms-1 m-1 text-dark">Schedule: 
-                          <small class="text-body-secondary">{{cl.schedule}}</small> 
+                      <h6 class="text-primary" style="font-weight: 500;">
+                        {{cl.subject_name}} 
+                        {{cl.grade_level}} 
+                        {{cl.strand === '-' ? ' ' : cl.strand}}</h6> 
+                      <p class="h6 ms-1 m-1 text-dark">Section: <small class="text-body-secondary" style="font-weight: 400;">{{cl.section_name}}</small> </p> 
+                      <p class="h6 ms-1 m-1 text-dark">Room: <small class="text-body-secondary" style="font-weight: 400;">{{cl.room}}</small> </p> 
+                      <p class="h6 ms-1 m-1 text-dark">Time: 
+                          <small class="text-body-secondary" style="font-weight: 400;">{{cl.time}}</small> 
                       </p> 
+                      <p class="h6 ms-1 m-1 text-dark">Schedule: 
+                        <small class="text-body-secondary" style="font-weight: 400;">{{cl.schedule}}</small> 
+                    </p> 
                   </div>
                   </div>
                 </div>
-              </div>
+              </div>  
             }
           </div>
-          
-            <!-- <canvas #myChart></canvas> -->
         </div>
         <!-- messege -->              
         
@@ -113,29 +46,15 @@
             <div class="card-body-notif">
               <div class="notification-list">
                 <!-- Notification 1 -->
-        
-                <!-- Notification 2 -->
-                <div class="notification-item">
+                 @for (inq of inquiries; track $index) {
+                <div class="notification-item" [routerLink]="['/main/messages/messagepage/messages/view/' + inq.message_sender]">
                   <div class="notification-header">
-                    <div class="sender-name text-primary">Miko Ofiaza III</div>
-                    <div class="notification-date">October 16, 2024</div>
+                    <div class="sender-name">{{ inq.sender_name }}</div>
+                    <div class="notification-date">{{ inq.message_date | date: 'MMMM dd, yyyy' }}</div>
                   </div>
-                  <div class="notification-message">Kailan submission?</div>
+                  <div class="notification-message"> {{ inq.message }}</div>
                 </div>
-                <div class="notification-item">
-                  <div class="notification-header">
-                    <div class="sender-name text-primary">Glenson Lozada</div>
-                    <div class="notification-date">October 16, 2024</div>
-                  </div>
-                  <div class="notification-message">May pasok po ba?</div>
-                </div>
-                <div class="notification-item">
-                  <div class="notification-header">
-                    <div class="sender-name text-primary">Dionece Collano</div>
-                    <div class="notification-date">October 16, 2024</div>
-                  </div>
-                  <div class="notification-message">Ma'am eat ka na po</div>
-                </div>
+              }
               </div>
             </div>
           </div>

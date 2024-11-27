@@ -2,7 +2,7 @@
     <img [width]="profilePicSize()" [height]="profilePicSize()" [src]="adminPic" class="prof-image" alt="Admin Profile Picture"> 
     <img />
     <div class="header-text" [class.hide-header-text]="sideNavCollapsed()">
-        <h2>{{ role }}</h2>
+        <p style="font-weight: 600; font-size: 15px;">{{ role }}</p>
         <p>{{ fname }} {{ lname }}</p>
     </div>
 </div>
@@ -14,9 +14,10 @@
     >
 
         <mat-icon matListItemIcon>{{item.icon}}</mat-icon>
-        <span matListItemTitle *ngIf="!sideNavCollapsed()">{{item.label}}</span>
+        <span style="font-family: Poppins; font-weight: 600;" matListItemTitle *ngIf="!sideNavCollapsed()">{{item.label}}</span>
         
     </a>
     
 </mat-nav-list> 
+
 

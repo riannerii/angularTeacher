@@ -26,17 +26,9 @@ export class ConnectService {
     return this.http.post(this.url + 'logout', {}, { headers });
   }
 
-  // submitAnnouncement(announcementData:any){
-  //   return this.http.post(this.url + 'announcements', announcementData) 
-  // }
-
-  // getannouncement(){
-  //   return this.http.get(this.url + 'announcements');
-  // }
- 
-  // getclasses(){
-  //   return this.http.get(this.url + 'getclasses');
-  // }
+  getInquiries(){
+    return this.http.get(this.url + 'getInquiries')
+  }
 
   getclasses() {
     const id = localStorage.getItem('admin_id');
@@ -60,10 +52,6 @@ export class ConnectService {
   return this.http.post(this.url + 'updateClassGrades/' + cid, payload);
   }
 
-  // saveAttendance(cid: string, payload: any) {
-  //   return this.http.post(this.url + 'updateClassGrades/' + cid, payload);
-  //   }
-
   getClassAttendance(cid: any){
     return this.http.get(this.url + 'getClassAttendance/' + cid);
   }
@@ -85,6 +73,7 @@ export class ConnectService {
       ...newData
     });
   }
+
   uploadImage(formData: FormData): Observable<any> {
     return this.http.post('http://localhost:8000/api/upload-image', formData);
   }
@@ -95,32 +84,40 @@ export class ConnectService {
   getClassAnnouncements(cid: any){
     return this.http.get(this.url + 'getClassAnnouncements/' + cid);
   }
-  
 
+  submitannouncement(announcementData:any):Observable<any>{
+    return this.http.post<any>(this.url + 'postAnnouncements',announcementData)
+  }
 
-
-  // announcement 
-  // getannouncement(): Observable<any[]> {
-  //   return this.http.get<any[]>(this.url + 'announcements'); 
-  // }
-  // submitannouncement(announcementData:any):Observable<any>{
-  //   return this.http.post<any>(this.url + 'postAnnouncements',announcementData)
-  // }
-  // getupdateannouncement(ancmnt_id: number): Observable<any> {
-  //   return this.http.get<any>(`${this.url}announcements/${ancmnt_id}`); // Adjust the endpoint as necessary
-  // }
-  // updateannouncement(ancmnt_id: number, data: any): Observable<any> {
-  //   return this.http.put<any>(`${this.url}updateAnnouncements/${ancmnt_id}`, data);
-  // }
-  // deleteAnnouncement(ancmnt_id: number): Observable<any> {
-  //   return this.http.delete(`${this.url}destroyannouncements/${ancmnt_id}`);
-  // }
+  deleteAnnouncement(ancmnt_id: number): Observable<any> {
+    return this.http.delete(this.url + 'destroyannouncements/' + ancmnt_id);
+  }
 
   
+// message
+  getMessages(uid: any){
+    return this.http.get(this.url + 'getMessages', {params: {uid: uid}});
+  }
+  getConvo(sid: any, uid: any){
+    return this.http.get(this.url + 'getConvo/' + sid , {params: {uid: uid}});
+  }
+  sendMessage(mdata: any){
+    return this.http.post(this.url + 'sendMessage', mdata );
+  }
+  getRecipients(): Observable<any[]> {
+    return this.http.get<any[]>(this.url + 'getrecepeints');
+  }
+  composeMessage(messageData: any): Observable<any> {
+    return this.http.post(this.url + 'composemessage', messageData);
+  }
+  getStudentParents(){
+    return this.http.get(this.url + 'getStudentParents');
+  }
+
+  updateGradePermission(payload: { LRN: string, term: string, permission: string }): Observable<any> {
+    return this.http.post<any>(this.url, payload);
+  }
 
 
-
-
-
-  
+ 
 }

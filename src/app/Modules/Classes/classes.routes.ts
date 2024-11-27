@@ -9,6 +9,8 @@ import { AddGradesComponent } from "./add-grades/add-grades.component";
 import { ViewStudentProgressComponent } from "./view-student-progress/view-student-progress.component";
 import { ViewAttendanceReportComponent } from "./view-attendance-report/view-attendance-report.component";
 import { ViewAnnouncementComponent } from "./view-announcement/view-announcement.component";
+import { PostAnnouncementComponent } from "./post-announcement/post-announcement.component";
+import { AnnouncementlistComponent } from "./announcementlist/announcementlist.component";
 
 
 export const classesRoute: Routes = [
@@ -24,6 +26,8 @@ export const classesRoute: Routes = [
                     {path: 'viewattendanceReport', component: ViewAttendanceReportComponent},
                     {path: 'viewstudentProg', component: ViewStudentProgressComponent},
                     {path: 'viewannouncement', component: ViewAnnouncementComponent},
+                    {path: 'postannouncement', component: PostAnnouncementComponent},
+                    {path: 'announcementlist', component: AnnouncementlistComponent},
                     {path: '', redirectTo: 'viewroster', pathMatch:"full"}
                 ]
             },
