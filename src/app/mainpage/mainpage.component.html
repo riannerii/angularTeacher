@@ -6,7 +6,7 @@
     <span class="example-spacer"></span>
     
     <!-- Notifications Button with Dropdown -->
-    <button mat-icon-button class="example-icon" [matMenuTriggerFor]="notificationsMenu" aria-label="Notifications">
+    <!-- <button mat-icon-button class="example-icon" [matMenuTriggerFor]="notificationsMenu" aria-label="Notifications">
         <mat-icon matBadgeColor="accent" matBadge="3">notifications</mat-icon>
     </button>
 
@@ -42,11 +42,11 @@
               </div>
             </mat-list-item>
         </mat-list>
-    </mat-menu>
+    </mat-menu> -->
 
     <!-- Profile Button with Dropdown -->
     <button mat-icon-button class="example-icon circle-btn ms-2" [matMenuTriggerFor]="profileMenu">
-        <img [src]="adminPic" class="prof-image" />
+        <img [src]="adminPic ? adminPic: 'mik.jpg'" class="prof-image" />
     </button>
     
     <!-- Profile Dropdown Menu -->

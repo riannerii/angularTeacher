@@ -8,6 +8,7 @@
                     <div class="form-group">
                         <label for="adminid">adminid:</label>
                         <input type="number" id="adminid" formControlName="admin_id" name="adminid" required>
+                        
                     </div>
                     <div class="form-group">
                         <label for="classid">classid:</label>
@@ -19,11 +20,19 @@
                     <label for="title">Title:</label>
                     <input type="text" id="title" formControlName="title" name="title" required>
                 </div>
+                
                 <div class="form-group">
                     <label for="announcement">Message:</label>
                     <textarea id="announcement" name="announcement" formControlName="announcement" rows="3" required></textarea>
                 </div>
+
+                <!-- <div *ngIf="announcementform.invalid && (announcementform.dirty || announcementform.touched)">
+                    <p style="color:red;">Please fill out all required fields.</p>
+                </div> -->
+
                 <button type="submit">Post</button>
+
+               
             </form>
         </section>
     </div>

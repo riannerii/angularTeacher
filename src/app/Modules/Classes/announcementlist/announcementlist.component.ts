@@ -5,11 +5,12 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { ConnectService } from '../../../connect.service';
 import Swal from 'sweetalert2'; 
+// import { MatError } from '@angular/material/form-field';
 
 @Component({
   selector: 'app-announcementlist',
   standalone: true,
-  imports: [MatExpansionModule, CommonModule, ReactiveFormsModule, RouterModule, FormsModule,],
+  imports: [MatExpansionModule, CommonModule, ReactiveFormsModule, RouterModule, FormsModule],
   templateUrl: './announcementlist.component.html',
   styleUrl: './announcementlist.component.css'
 })
@@ -46,10 +47,20 @@ export class AnnouncementlistComponent implements OnInit {
         });
         this.announcementform.reset()
         this.navigateToMainPage(); // Navigate to the main page
+        this.getClassAnnouncements(this.aroute.snapshot.parent?.paramMap.get('cid'));
+       
       },
       (error) => {
         console.error('Error submitting announcement:', error); 
+        Swal.fire({
+          title: 'No submitted announcement',
+          text: 'Please fill out all required fields.',
+          // icon: 'error',
+          confirmButtonText: 'OK' // You can customize the button text
+        });
+        // this.getClassAnnouncements(this.aroute.snapshot.parent?.paramMap.get('cid'));
       }
+      
     );
   }
   navigateToMainPage() {

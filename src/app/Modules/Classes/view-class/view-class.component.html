@@ -1,40 +1,68 @@
 <div class="container mt-3 mb-4 ms-1">
-    <p class="h2" style="font-weight: 600;">My Classes </p>
+    <p class="h2" style="font-weight: 600;">All Classes</p>
+</div>
+
+<!-- Filter Buttons -->
+<div class="container mb-4">
+    <button 
+        [ngClass]="{'btn-primary': selectedFilter === 'All', 'btn-outline-primary': selectedFilter !== 'All'}"
+        (click)="filterClasses('All')" class="btn">All Classes</button>
+    
+    <button 
+        [ngClass]="{'btn-primary': selectedFilter === 'JHS', 'btn-outline-primary': selectedFilter !== 'JHS'}"
+        (click)="filterClasses('JHS')" class="btn ms-2">Junior High School</button>
+    
+    <button
+        [ngClass]="{'btn-primary': selectedFilter === 'SHS', 'btn-outline-primary': selectedFilter !== 'SHS'}"
+        (click)="toggleSemesterButtons()" class="btn ms-2">Senior High School</button>
+    
+    <!-- Semester Buttons -->
+    <div *ngIf="showSemesterButtons">
+        <button 
+            [ngClass]="{'btn-primary': selectedSemester === 1, 'btn-outline-primary': selectedSemester !== 1}"
+            (click)="filterClasses('SHS', 1)" class="btn mt-4">First Semester</button>
+        
+        <button 
+            [ngClass]="{'btn-primary': selectedSemester === 2, 'btn-outline-primary': selectedSemester !== 2}"
+            (click)="filterClasses('SHS', 2)" class="btn ms-2 mt-4">Second Semester</button>
+    </div>
 </div>
 
 <!-- List of Subjects Assigned to a Teacher -->
 <div class="container">
     <div class="row g-4">
-        @for (cl of classes; track cl)
-        {
-            <div class="col-12 col-md-6 col-lg-4">
-                <div class="card h-100 d-flex flex-column flex-sm-row" [routerLink]="['/main/classes/classespage/viewsubject/', cl.class_id]">
-                    <!-- Image -->
-                    <div class="image-container flex-shrink-0">
-                        <img src="{{cl.image}}" class="card-img-left d-none d-sm-block" alt="...">
-                    </div>
-                    <!-- Content -->
-                    <div class="card-body">
-                        <div class="text-section">
-                            <h5 class="text-primary" style="font-weight: 500;">
-                                {{cl.subject_name}} 
-                                {{cl.grade_level}} 
-                                {{cl.strand === '-' ? ' ' : cl.strand}}
-                                 
-                            </h5>
-                                
-                            <p class="h6 ms-1 m-1 d-none d-sm-block">Section: <small class="text-body-secondary" style="font-weight: 400;">{{cl.section_name}}</small> </p>
-                            <p class="h6 ms-1 m-1 d-none d-sm-block">Room: <small class="text-body-secondary" style="font-weight: 400;">{{cl.room}}</small> </p>
-                            <p class="h6 ms-1 m-1 d-none d-sm-block">Time: 
-                                <small class="text-body-secondary" style="font-weight: 400;">{{cl.time}}</small> 
-                            </p>
-                            <p class="h6 ms-1 m-1 d-none d-sm-block">Schedule: 
-                                <small class="text-body-secondary" style="font-weight: 400;">{{cl.schedule}}</small> 
-                            </p>
-                        </div>
+        <!-- Loop over the filtered classes -->
+        <div *ngFor="let cl of filteredClasses" class="col-12 col-md-6 col-lg-4">
+            <div class="card h-100 d-flex flex-column flex-sm-row" [routerLink]="['/main/classes/classespage/viewsubject/', cl.class_id]">
+                <!-- Image -->
+                <div class="image-container flex-shrink-0">
+                    <img [src]="cl.image" class="card-img-left d-none d-sm-block" alt="...">
+                </div>
+                <!-- Content -->
+                <div class="card-body">
+                    <div class="text-section">
+                        <h5 class="text-primary" style="font-weight: 500;">
+                            {{ cl.subject_name.length > 13 ? (cl.subject_name | slice:0:13) + '...' : cl.subject_name }}
+                            {{cl.grade_level}} 
+                            {{cl.strand === '-' ? '' : cl.strand}} 
+                        </h5>
+                             
+                        <p class="h6 ms-1 m-1 d-none d-sm-block">Section: <small class="text-body-secondary" style="font-weight: 400;">{{cl.section_name}}</small></p>
+                        <p class="h6 ms-1 m-1 d-none d-sm-block">Room: <small class="text-body-secondary" style="font-weight: 400;">{{cl.room}}</small></p>
+                        <p class="h6 ms-1 m-1 d-none d-sm-block">Time: 
+                            <small class="text-body-secondary" style="font-weight: 400;">{{cl.time}}</small> 
+                        </p>
+                        <p class="h6 ms-1 m-1 d-none d-sm-block">Schedule: 
+                            <small class="text-body-secondary" style="font-weight: 400;">{{formatSchedule(cl.schedule)}}</small> 
+                        </p>
                     </div>
                 </div>
-            </div>
-        }
+            </div> 
+        </div>
+
+        <!-- No Classes Message -->
+        <ng-container *ngIf="filteredClasses.length === 0">
+            <p>No Assigned Classes</p>
+        </ng-container>
     </div>
 </div>

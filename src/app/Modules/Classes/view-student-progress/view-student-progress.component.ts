@@ -3,6 +3,7 @@ import { ConnectService } from '../../../connect.service';
 import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-view-student-progress',
@@ -43,30 +44,37 @@ export class ViewStudentProgressComponent implements OnInit {
     });
   }
 
+  savingStatus: { [key: string]: boolean } = {}; // Tracks saving status for each grade field
+
   updateGrade(LRN: string, term: string, grade: number) {
     console.warn(LRN);
     const cid = this.aroute.snapshot.parent?.paramMap.get('cid')!;
     const payload = {
-      grades: [
-        {
-          LRN: String(LRN),
-          term,
-          grade: Number(grade),
-          permission: 'none'
-        }
-      ]
+        grades: [
+            {
+                LRN: String(LRN),
+                term,
+                grade: Number(grade),
+                permission: 'none'
+            }
+        ]
     };
     console.log('Payload:', payload);
 
+    const key = `${LRN}-${term}`; // Unique key for each grade field
+    this.savingStatus[key] = true; // Start saving
+
     this.klase.updateClassGrades(cid, payload).subscribe(
-      (response: any) => {
-        console.log(response.message);
-      },
-      (error) => {
-        console.error('Error updating grade', error);
-      }
+        (response: any) => {
+            console.log(response.message);
+            this.savingStatus[key] = false; // Saving complete
+        },
+        (error) => {
+            console.error('Error updating grade', error);
+            this.savingStatus[key] = false; // Reset saving status on error
+        }
     );
-  }
+}
 
   editRequestActive: boolean = false; // Track the visibility of Edit buttons
 

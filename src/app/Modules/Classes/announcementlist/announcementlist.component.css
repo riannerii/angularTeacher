@@ -124,6 +124,7 @@ button:hover {
   .announcement-p {
     margin: 0;
     line-height: 1.6;
+    white-space: pre-wrap;
   }
   
   .delete {

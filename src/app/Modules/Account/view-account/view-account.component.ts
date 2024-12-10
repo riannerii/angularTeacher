@@ -44,27 +44,26 @@ export class ViewAccountComponent implements OnInit {
 
   loadUserData(): void {
     const user = JSON.parse(localStorage.getItem('user') || '{}');
-    this.user = user;
-    console.log(user);
-
+    this.user = user; // Set the user object
+    console.log('Loaded user:', this.user);
+  
     if (user) {
-      this.profileForm.patchValue({
-        admin_id: user.admin_id,
-        fname: user.fname,
-        mname: user.mname,
-        lname: user.lname,
-        email: user.email,
-        address: user.address,
-        role: user.role,
-        oldPassword: user.oldPassword,
-      });
+        // Patch the profile form with user details
+        this.profileForm.patchValue({
+            admin_id: user.admin_id,
+            fname: user.fname,
+            mname: user.mname,
+            lname: user.lname,
+            email: user.email,
+            address: user.address,
+            role: user.role,
+            oldPassword: user.oldPassword,
+  
+        });
     }
-
-    if (user && user.admin_pic) {
-      this.adminPic = user.admin_pic;
-    } else {
-      console.warn('Admin picture URL not found in localStorage');
-    }
+  
+    // Set admin picture
+    this.adminPic = user.admin_pic || 'mik.jpg';
   }
 
   saveChanges(): void {

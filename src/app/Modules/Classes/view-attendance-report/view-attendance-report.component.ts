@@ -18,7 +18,7 @@ export class ViewAttendanceReportComponent implements OnInit {
   classInfo: any;
   months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
   days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
-  colors = ['gray', 'green', 'orange', 'red']; 
+  colors = ['white', 'green', 'orange', 'red']; 
   weekdays = [0, 1, 2, 3, 4];
   today = new Date();
   currentDate: string;
@@ -77,7 +77,7 @@ export class ViewAttendanceReportComponent implements OnInit {
   
     // Calculate the date for the specific day clicked
     const calculatedDate = new Date(this.today);
-    calculatedDate.setDate(this.today.getDate() - (this.today.getDay() - 1) + day);
+    calculatedDate.setDate(this.today.getDate() - (this.today.getDay() - 1) + day); 
   
     // Format the date as 'YYYY-MM-DD'
     const formattedDate = calculatedDate.toISOString().split('T')[0];
@@ -89,6 +89,17 @@ export class ViewAttendanceReportComponent implements OnInit {
     this.updateAttendance(studentLRN, formattedDate, statusText);
   }
   
+  isFutureDate(date: string): boolean {
+    const currentDate = new Date();
+    const targetDate = new Date(date);
+    
+    // Set the time to 00:00:00 to ignore the time portion during comparison
+    currentDate.setHours(0, 0, 0, 0);
+    targetDate.setHours(0, 0, 0, 0);
+  
+    // Check if the target date is after today
+    return targetDate > currentDate;
+  }
 
   // Function to load attendance data for the specific week
   loadAttendanceForWeek(cid: any) {
@@ -130,7 +141,7 @@ export class ViewAttendanceReportComponent implements OnInit {
   }
 
   updateAttendance(LRN: string, date: string, status: string) {
-    const cid = this.aroute.snapshot.parent?.paramMap.get('cid')!;
+    const cid = this.aroute.snapshot.parent?.paramMap.get('cid')!; 
     const payload = {
       attendance: [
         { LRN: String(LRN), date, status }
@@ -141,17 +152,10 @@ export class ViewAttendanceReportComponent implements OnInit {
       console.log(response.message);
     }, (error) => {
       console.error('Error updating attendance', error); 
-      // Swal.fire({
-      //   icon: "success",
-      //   text: "Attendance updated!",
-      //   showConfirmButton: false,
-      //   timer: 800
-      // });
     });
     
   }
   
-
   onPreviousWeek() {
     this.today.setDate(this.today.getDate() - 7); // Move to the previous week
     const cid = this.aroute.snapshot.parent?.paramMap.get('cid');
@@ -163,14 +167,6 @@ export class ViewAttendanceReportComponent implements OnInit {
     const cid = this.aroute.snapshot.parent?.paramMap.get('cid');
     this.loadAttendanceForWeek(cid); // Load the data for the next week
   }
-
-  
-  
-  
-  
-
- 
-
   
 }
 

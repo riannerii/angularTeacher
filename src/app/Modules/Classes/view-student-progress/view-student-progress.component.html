@@ -10,6 +10,7 @@
         <table *ngIf="classInfo[0].grade_level >= 7 && classInfo[0].grade_level <= 10" class="table table-bordered attendance-table">
             <thead class="table-light">
                 <tr>
+                    <th rowspan="2" class="align-middle text-center" style="width: 5%;">No.</th>
                     <th rowspan="2" class="text-center align-middle" style="width: 30%;">Student Name</th>
                     <th colspan="4" class="text-center" style="width: 60%;">Grading Period</th>
                 </tr>
@@ -21,7 +22,8 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let cl of gradeInfo">
+                <tr *ngFor="let cl of gradeInfo; let i = index">
+                    <td class="text-center">{{ i + 1 }}</td>
                     <td class="text-start">{{ cl.student_lname }}, {{ cl.student_fname }}</td>
                     <td class="text-center">
                         <input
@@ -30,24 +32,27 @@
                             [(ngModel)]="cl.grade_Q1"
                             (ngModelChange)="updateGrade(cl.LRN, 'First Quarter', cl.grade_Q1)"
                             [disabled]="cl.permission_Q1 === 'none' || cl.permission_Q1 === 'pending'" />
-                        <button *ngIf="editRequestActive && cl.grade_Q1" 
+                            <button *ngIf="editRequestActive && cl.grade_Q1 && (cl.permission_Q1 === 'none' || cl.permission_Q1 === 'pending')" 
                                 (click)="editGradePermission(cl.LRN, 'First Quarter', cl.grade_Q1)" 
                                 [disabled]="cl.permission_Q1 === 'pending'">
                             {{ cl.permission_Q1 === 'pending' ? 'Pending' : 'Request' }}
                         </button>
+                        <span *ngIf="savingStatus[cl.LRN + '-First Quarter']" class="text-success ms-2">Saving...</span>
                     </td>
-                    <td class="text-center">
+                    
+                    <td class="text-center"> 
                         <input
                             type="text"
                             class="form-control"
                             [(ngModel)]="cl.grade_Q2"
                             (ngModelChange)="updateGrade(cl.LRN, 'Second Quarter', cl.grade_Q2)"
                             [disabled]="cl.permission_Q2 === 'none' || cl.permission_Q2 === 'pending'" />
-                        <button *ngIf="editRequestActive && cl.grade_Q2" 
+                        <button *ngIf="editRequestActive && cl.grade_Q2 && (cl.permission_Q2 === 'none' || cl.permission_Q2 === 'pending')" 
                                 (click)="editGradePermission(cl.LRN, 'Second Quarter', cl.grade_Q2)" 
                                 [disabled]="cl.permission_Q2 === 'pending'">
                             {{ cl.permission_Q2 === 'pending' ? 'Pending' : 'Request' }}
                         </button>
+                        <span *ngIf="savingStatus[cl.LRN + '-Second Quarter']" class="text-success ms-2">Saving...</span>
                     </td>
                     <td class="text-center">
                         <input
@@ -56,11 +61,12 @@
                             [(ngModel)]="cl.grade_Q3"
                             (ngModelChange)="updateGrade(cl.LRN, 'Third Quarter', cl.grade_Q3)"
                             [disabled]="cl.permission_Q3 === 'none' || cl.permission_Q3 === 'pending'" />
-                        <button *ngIf="editRequestActive && cl.grade_Q3" 
+                            <button *ngIf="editRequestActive && cl.grade_Q3 && (cl.permission_Q3 === 'none' || cl.permission_Q3 === 'pending')"  
                                 (click)="editGradePermission(cl.LRN, 'Second Quarter', cl.grade_Q3)" 
                                 [disabled]="cl.permission_Q3 === 'pending'">
                             {{ cl.permission_Q3 === 'pending' ? 'Pending' : 'Request' }}
                         </button>
+                        <span *ngIf="savingStatus[cl.LRN + '-Third Quarter']" class="text-success ms-2">Saving...</span>
                     </td>
                     <td class="text-center">
                         <input
@@ -69,11 +75,12 @@
                             [(ngModel)]="cl.grade_Q4"
                             (ngModelChange)="updateGrade(cl.LRN, 'Fourth Quarter', cl.grade_Q4)"
                             [disabled]="cl.permission_Q4 === 'none' || cl.permission_Q4 === 'pending'" />
-                        <button *ngIf="editRequestActive && cl.grade_Q4" 
+                            <button *ngIf="editRequestActive && cl.grade_Q4 && (cl.permission_Q4 === 'none' || cl.permission_Q4 === 'pending')"  
                                 (click)="editGradePermission(cl.LRN, 'Fourth Quarter', cl.grade_Q4)" 
                                 [disabled]="cl.permission_Q4 === 'pending'">
                             {{ cl.permission_Q4 === 'pending' ? 'Pending' : 'Request' }}
                         </button>
+                        <span *ngIf="savingStatus[cl.LRN + '-Fourth Quarter']" class="text-success ms-2">Saving...</span>
                     </td>
                 </tr>
             </tbody>
@@ -100,10 +107,12 @@
                             [(ngModel)]="cl.grade_midterm"
                             (ngModelChange)="updateGrade(cl.LRN, 'Midterm', cl.grade_midterm)"
                             [disabled]="cl.permission_midterm === 'none' || cl.permission_midterm === 'pending'" />
-                        <button *ngIf="editRequestActive && cl.grade_midterm && cl.permission_midterm !== 'pending'"
-                                (click)="editGradePermission(cl.LRN, 'Midterm', cl.grade_midterm)">
+                            <button *ngIf="editRequestActive && cl.grade_midterm && (cl.permission_midterm === 'none' || cl.permission_midterm === 'pending')" 
+                                (click)="editGradePermission(cl.LRN, 'Midterm', cl.grade_midterm)"
+                                [disabled]="cl.permission_midterm === 'pending'">
                             {{ cl.permission_midterm === 'pending' ? 'Pending' : 'Request' }}
                         </button>
+                        <span *ngIf="savingStatus[cl.LRN + '-Midterm']" class="text-success ms-2">Saving...</span>
                         
                     </td>
                     <td class="text-center">
@@ -113,10 +122,12 @@
                             [(ngModel)]="cl.grade_final"
                             (ngModelChange)="updateGrade(cl.LRN, 'Final', cl.grade_final)"
                             [disabled]="cl.permission_final === 'none' || cl.permission_final === 'pending'" />
-                        <button *ngIf="editRequestActive && cl.grade_final && cl.permission_final !== 'pending'"
-                                (click)="editGradePermission(cl.LRN, 'Final', cl.grade_final)">
+                            <button *ngIf="editRequestActive && cl.grade_final && (cl.permission_final === 'none' || cl.permission_final === 'pending')" 
+                                (click)="editGradePermission(cl.LRN, 'Final', cl.grade_final)"
+                                [disabled]="cl.permission_final === 'pending'">
                             {{ cl.permission_final === 'pending' ? 'Pending' : 'Request' }}
                         </button>
+                        <span *ngIf="savingStatus[cl.LRN + '-Final']" class="text-success ms-2">Saving...</span>
                     </td>
                 </tr>
             </tbody>

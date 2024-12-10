@@ -21,12 +21,7 @@ export class ViewRosterlistComponent implements OnInit{
   ngOnInit(): void {
     console.log("VIEW ROSTER LIST")
     const cid = this.aroute.snapshot.parent?.paramMap.get('cid')
-    // const cid = this.aroute.parent?.children.params.subscribe(params =>{
-    //   console.log(params)
-    // }) 
-      // this.getclasses()  
       this.getClassInfo(cid);
-      // console.log(this.aroute.snapshot)
   }
   
   getClassInfo(cid:any){

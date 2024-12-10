@@ -9,10 +9,10 @@
 
     <!-- Legend for Attendance Colors -->
     <div class="d-flex align-items-center ms-3">
-      <div class="legend-item d-flex align-items-center me-2">
+      <!-- <div class="legend-item d-flex align-items-center me-2">
         <span class="legend-color" style="background-color: gray;"></span>
         <span class="legend-text">No Record</span>
-      </div>
+      </div> -->
       <div class="legend-item d-flex align-items-center me-2">
         <span class="legend-color" style="background-color: green"></span>
         <span class="legend-text">Present</span>
@@ -50,14 +50,17 @@
           <tr>
             <th rowspan="2" class="align-middle" style="width: 5%;">No.</th>
             <th rowspan="2" class="align-middle" style="width: 20%;">Name</th>
-            <th colspan="22">Day</th>
+            <th colspan="22">Day</th> 
           </tr> 
           <tr>
             <th *ngFor="let day of weekdays; let d = index" class="day-column">
               {{ days[d] }} 
-              <br><span style="font-weight: normal;">{{ d + today.getDate() - (today.getDay() - 1) }}</span>
+              <br><span *ngIf="(d + today.getDate() - (today.getDay() - 1)) >= 1 && (d + today.getDate() - (today.getDay() - 1)) <= 31" style="font-weight: normal;">
+                {{ d + today.getDate() - (today.getDay() - 1) }}
+              </span>
             </th>
           </tr>
+          
         </thead> 
         <tbody>
           <tr *ngFor="let student of students; let i = index">
@@ -65,11 +68,17 @@
             <td class="text-start">{{ student.name }}</td>
             <td *ngFor="let day of weekdays; let d = index"
                 (click)="handleClick(i, d)"
-                [ngStyle]="{'background-color': colors[student.attendance[d]?.status || 0]}"> 
-              <!-- {{ student.attendance[d]?.day | date: 'MMMM d, yyyy' }} -->
+                [ngStyle]="{
+                  'background-color': isFutureDate(student.attendance[d]?.day) 
+                    ? '#f8f6f6' 
+                    : colors[student.attendance[d]?.status || 0],
+                  'pointer-events': isFutureDate(student.attendance[d]?.day) ? 'none' : 'auto'
+                }">
             </td>
           </tr>
         </tbody>
+        
+        
       </table>
     </div>
   </div>

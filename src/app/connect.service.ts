@@ -11,6 +11,7 @@ export class ConnectService {
   constructor(private http: HttpClient) {}
 
   url = "http://localhost:8000/api/";
+  // url = "http://10.0.65.37:8000/api/";
   token = localStorage.getItem('token');
 
   private adminPicSubject = new BehaviorSubject<string | null>(null); // This will store the admin image URL
@@ -26,8 +27,12 @@ export class ConnectService {
     return this.http.post(this.url + 'logout', {}, { headers });
   }
 
-  getInquiries(){
-    return this.http.get(this.url + 'getInquiries')
+  // getInquiries(){
+  //   return this.http.get(this.url + 'getInquiries')
+  // }
+
+  getInquiries(uid: any){
+    return this.http.get(this.url + 'getInquiries', {params: {uid: uid}})
   }
 
   getclasses() {

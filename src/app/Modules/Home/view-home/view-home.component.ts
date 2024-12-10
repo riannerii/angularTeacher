@@ -22,9 +22,19 @@ export class ViewHomeComponent implements OnInit{
   currentDate: string;
   classes: any;
   inquiries:any;
+  uid:any;
 
+  isLoadingInquiries = true;
+
+  constructor
+  (private klase: ConnectService)
+  {
+    this.currentDay = this.getCurrentDay();
+    this.currentDate = this.getCurrentDate();
+  }
 
   ngOnInit(): void {
+    this.uid = localStorage.getItem('admin_id');
     this.getClassesToday()
     this.loadUserData();
     this.getInquiry();
@@ -57,12 +67,7 @@ export class ViewHomeComponent implements OnInit{
     }
   }
   
-  constructor
-  (private klase: ConnectService)
-  {
-    this.currentDay = this.getCurrentDay();
-    this.currentDate = this.getCurrentDate();
-  }
+  
 
   getGreeting(): string {
     const hours = new Date().getHours();
@@ -94,22 +99,25 @@ export class ViewHomeComponent implements OnInit{
   }
 
   getInquiry() {
-    const inqId = localStorage.getItem('admin_id');  // Get the inq_id from localStorage
-    if (inqId) {
-      this.klase.getInquiries().subscribe((result: any) => {
-        this.inquiries = result;
+    this.klase.getInquiries(this.uid).subscribe((result: any) => {
+      this.inquiries = result;
+      this.inquiries.forEach((inquiry:any) => {
+        console.log(inquiry);
+
+        const uniqueMessages = [];
+        const seenSenders = new Set();
   
-        // Filter the inquiries to only include those where message_reciever matches inq_id
-        this.inquiries = this.inquiries.filter((inquiry: any) => inquiry.message_reciever === parseInt(inqId));
+        for (const msg of result) {
+            if (!seenSenders.has(msg.sender_name)) {
+                seenSenders.add(msg.sender_name);
+                uniqueMessages.push(msg);
+            }
+        }
   
-        // Log the filtered inquiries
-        this.inquiries.forEach((inquiry: any) => {
-          console.log(inquiry);
-        });
+        this.inquiries = uniqueMessages;
       });
-    } else {
-      console.log('inq_id not found in localStorage');
-    }
+      this.isLoadingInquiries = false;
+    })
   }
 
   

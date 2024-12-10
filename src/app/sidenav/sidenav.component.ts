@@ -57,8 +57,9 @@ export class SidenavComponent implements OnInit {
         this.role = parsedData.role || '';
         this.lname = parsedData.lname || '';
         this.fname = parsedData.fname || '';
-    }
+    } 
   }
+  
 
   menuItems = signal<MenuItem[]>([
     {
