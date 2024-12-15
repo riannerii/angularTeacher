@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, } from 'rxjs';
 
@@ -115,6 +115,16 @@ export class ConnectService {
   composeMessage(messageData: any): Observable<any> {
     return this.http.post(this.url + 'composemessage', messageData);
   }
+
+  markAsRead(sid: any){
+    return this.http.post(this.url + 'markAsRead', {sid});
+  }
+
+  getUnreadMessagesCount(uid: any) {
+    const params = new HttpParams().set('uid', uid);
+    return this.http.get(this.url + 'getUnreadCount', {params});
+}
+
   getStudentParents(){
     return this.http.get(this.url + 'getStudentParents');
   }

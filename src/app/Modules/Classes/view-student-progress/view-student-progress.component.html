@@ -13,12 +13,15 @@
                     <th rowspan="2" class="align-middle text-center" style="width: 5%;">No.</th>
                     <th rowspan="2" class="text-center align-middle" style="width: 30%;">Student Name</th>
                     <th colspan="4" class="text-center" style="width: 60%;">Grading Period</th>
+                    <th rowspan="2" class="text-center  align-middle" style="width: 10%;">Average</th>
                 </tr>
                 <tr class="text-center">
                     <th style="width: 15%;">First Quarter</th>
                     <th style="width: 15%;">Second Quarter</th>
                     <th style="width: 15%;">Third Quarter</th>
                     <th style="width: 15%;">Fourth Quarter</th>
+                   
+
                 </tr>
             </thead>
             <tbody>
@@ -27,61 +30,84 @@
                     <td class="text-start">{{ cl.student_lname }}, {{ cl.student_fname }}</td>
                     <td class="text-center">
                         <input
-                            type="text"
+                            type="number"
+                            min="60" max="99"
                             class="form-control"
                             [(ngModel)]="cl.grade_Q1"
                             (ngModelChange)="updateGrade(cl.LRN, 'First Quarter', cl.grade_Q1)"
-                            [disabled]="cl.permission_Q1 === 'none' || cl.permission_Q1 === 'pending'" />
-                            <button *ngIf="editRequestActive && cl.grade_Q1 && (cl.permission_Q1 === 'none' || cl.permission_Q1 === 'pending')" 
+                            [disabled]="cl.permission_Q1 === 'none' || cl.permission_Q1 === 'pending'" 
+                        />
+                            <button onclick="this.innerHTML = 'Pending'" 
+                                *ngIf="editRequestActive && cl.grade_Q1 && (cl.permission_Q1 === 'none' || cl.permission_Q1 === 'pending')" 
                                 (click)="editGradePermission(cl.LRN, 'First Quarter', cl.grade_Q1)" 
                                 [disabled]="cl.permission_Q1 === 'pending'">
-                            {{ cl.permission_Q1 === 'pending' ? 'Pending' : 'Request' }}
-                        </button>
-                        <span *ngIf="savingStatus[cl.LRN + '-First Quarter']" class="text-success ms-2">Saving...</span>
+                                {{ cl.permission_Q1 === 'pending' ? 'Pending' : 'Request' }}
+                            </button>
+                        <!-- <span *ngIf="savingStatus[cl.LRN + '-First Quarter']" class="text-success ms-2">Saving...</span> -->
+                        <span *ngIf="savingStatus[cl.LRN + '-First Quarter'] && cl.grade_Q1 >= 60 && cl.grade_Q1 <= 99" class="text-success ms-2">Saving...</span>
+                        
                     </td>
                     
                     <td class="text-center"> 
                         <input
-                            type="text"
+                            type="number"
+                            min="60" max="99"
                             class="form-control"
                             [(ngModel)]="cl.grade_Q2"
                             (ngModelChange)="updateGrade(cl.LRN, 'Second Quarter', cl.grade_Q2)"
-                            [disabled]="cl.permission_Q2 === 'none' || cl.permission_Q2 === 'pending'" />
-                        <button *ngIf="editRequestActive && cl.grade_Q2 && (cl.permission_Q2 === 'none' || cl.permission_Q2 === 'pending')" 
+                            [disabled]="cl.permission_Q2 === 'none' || cl.permission_Q2 === 'pending'" 
+                        />
+                            <button onclick="this.innerHTML = 'Pending'" 
+                                *ngIf="editRequestActive && cl.grade_Q2 && (cl.permission_Q2 === 'none' || cl.permission_Q2 === 'pending')" 
                                 (click)="editGradePermission(cl.LRN, 'Second Quarter', cl.grade_Q2)" 
                                 [disabled]="cl.permission_Q2 === 'pending'">
-                            {{ cl.permission_Q2 === 'pending' ? 'Pending' : 'Request' }}
-                        </button>
+                                {{ cl.permission_Q2 === 'pending' ? 'Pending' : 'Request' }}
+                            </button>
                         <span *ngIf="savingStatus[cl.LRN + '-Second Quarter']" class="text-success ms-2">Saving...</span>
                     </td>
+
                     <td class="text-center">
                         <input
-                            type="text"
+                            type="number"
+                            min="60" max="99"
                             class="form-control"
                             [(ngModel)]="cl.grade_Q3"
                             (ngModelChange)="updateGrade(cl.LRN, 'Third Quarter', cl.grade_Q3)"
-                            [disabled]="cl.permission_Q3 === 'none' || cl.permission_Q3 === 'pending'" />
-                            <button *ngIf="editRequestActive && cl.grade_Q3 && (cl.permission_Q3 === 'none' || cl.permission_Q3 === 'pending')"  
-                                (click)="editGradePermission(cl.LRN, 'Second Quarter', cl.grade_Q3)" 
+                            [disabled]="cl.permission_Q3 === 'none' || cl.permission_Q3 === 'pending'" 
+                        />
+                            <button onclick="this.innerHTML = 'Pending'"
+                                *ngIf="editRequestActive && cl.grade_Q3 && (cl.permission_Q3 === 'none' || cl.permission_Q3 === 'pending')"  
+                                (click)="editGradePermission(cl.LRN, 'Third Quarter', cl.grade_Q3)" 
                                 [disabled]="cl.permission_Q3 === 'pending'">
-                            {{ cl.permission_Q3 === 'pending' ? 'Pending' : 'Request' }}
-                        </button>
+                                {{ cl.permission_Q3 === 'pending' ? 'Pending' : 'Request' }}
+                            </button>
                         <span *ngIf="savingStatus[cl.LRN + '-Third Quarter']" class="text-success ms-2">Saving...</span>
                     </td>
+
                     <td class="text-center">
                         <input
-                            type="text"
+                            type="number"
+                            min="60" max="99"
                             class="form-control"
                             [(ngModel)]="cl.grade_Q4"
                             (ngModelChange)="updateGrade(cl.LRN, 'Fourth Quarter', cl.grade_Q4)"
-                            [disabled]="cl.permission_Q4 === 'none' || cl.permission_Q4 === 'pending'" />
-                            <button *ngIf="editRequestActive && cl.grade_Q4 && (cl.permission_Q4 === 'none' || cl.permission_Q4 === 'pending')"  
+                            [disabled]="cl.permission_Q4 === 'none' || cl.permission_Q4 === 'pending'" 
+                        />
+                            <button onclick="this.innerHTML = 'Pending'"
+                                *ngIf="editRequestActive && cl.grade_Q4 && (cl.permission_Q4 === 'none' || cl.permission_Q4 === 'pending')"  
                                 (click)="editGradePermission(cl.LRN, 'Fourth Quarter', cl.grade_Q4)" 
                                 [disabled]="cl.permission_Q4 === 'pending'">
-                            {{ cl.permission_Q4 === 'pending' ? 'Pending' : 'Request' }}
-                        </button>
+                                {{ cl.permission_Q4 === 'pending' ? 'Pending' : 'Request' }}
+                            </button>
                         <span *ngIf="savingStatus[cl.LRN + '-Fourth Quarter']" class="text-success ms-2">Saving...</span>
                     </td>
+
+                    <td class="text-center align-middle">
+                        <span *ngIf="calculateAverage(cl.grade_Q1, cl.grade_Q2, cl.grade_Q3, cl.grade_Q4) > 0">
+                            {{ calculateAverage(cl.grade_Q1, cl.grade_Q2, cl.grade_Q3, cl.grade_Q4)}}
+                        </span>
+                    </td>
+                    
                 </tr>
             </tbody>
         </table>
@@ -91,6 +117,7 @@
                 <tr>
                     <th rowspan="2" class="text-center align-middle" style="width: 30%;">Student Name</th>
                     <th colspan="2" class="text-center" style="width: 60%;">Grading Period</th>
+                    <th rowspan="2" class="text-center  align-middle" style="width: 10%;">Average</th>
                 </tr>
                 <tr class="text-center">
                     <th style="width: 30%;">Midterms</th>
@@ -102,32 +129,44 @@
                     <td class="text-start">{{ cl.student_lname }}, {{ cl.student_fname }}</td>
                     <td class="text-center">
                         <input
-                            type="text"
+                            type="number"
+                            min="60" max="99"
                             class="form-control"
                             [(ngModel)]="cl.grade_midterm"
                             (ngModelChange)="updateGrade(cl.LRN, 'Midterm', cl.grade_midterm)"
-                            [disabled]="cl.permission_midterm === 'none' || cl.permission_midterm === 'pending'" />
-                            <button *ngIf="editRequestActive && cl.grade_midterm && (cl.permission_midterm === 'none' || cl.permission_midterm === 'pending')" 
+                            [disabled]="cl.permission_midterm === 'none' || cl.permission_midterm === 'pending'" 
+                        />
+                            <button onclick="this.innerHTML = 'Pending'"
+                                *ngIf="editRequestActive && cl.grade_midterm && (cl.permission_midterm === 'none' || cl.permission_midterm === 'pending')" 
                                 (click)="editGradePermission(cl.LRN, 'Midterm', cl.grade_midterm)"
                                 [disabled]="cl.permission_midterm === 'pending'">
-                            {{ cl.permission_midterm === 'pending' ? 'Pending' : 'Request' }}
-                        </button>
+                                {{ cl.permission_midterm === 'pending' ? 'Pending' : 'Request' }}
+                            </button>
                         <span *ngIf="savingStatus[cl.LRN + '-Midterm']" class="text-success ms-2">Saving...</span>
                         
                     </td>
                     <td class="text-center">
                         <input
-                            type="text"
+                            type="number"
+                            min="60" max="99"
                             class="form-control"
                             [(ngModel)]="cl.grade_final"
                             (ngModelChange)="updateGrade(cl.LRN, 'Final', cl.grade_final)"
-                            [disabled]="cl.permission_final === 'none' || cl.permission_final === 'pending'" />
-                            <button *ngIf="editRequestActive && cl.grade_final && (cl.permission_final === 'none' || cl.permission_final === 'pending')" 
+                            [disabled]="cl.permission_final === 'none' || cl.permission_final === 'pending'" 
+                        />
+                            <button onclick="this.innerHTML = 'Pending'"
+                                *ngIf="editRequestActive && cl.grade_final && (cl.permission_final === 'none' || cl.permission_final === 'pending')" 
                                 (click)="editGradePermission(cl.LRN, 'Final', cl.grade_final)"
                                 [disabled]="cl.permission_final === 'pending'">
-                            {{ cl.permission_final === 'pending' ? 'Pending' : 'Request' }}
+                                {{ cl.permission_final === 'pending' ? 'Pending' : 'Request' }}
                         </button>
                         <span *ngIf="savingStatus[cl.LRN + '-Final']" class="text-success ms-2">Saving...</span>
+                    </td>
+
+                    <td class="text-center align-middle">
+                        <span *ngIf="calculateAveragee(cl.grade_midterm, cl.grade_final) > 0">
+                            {{ calculateAveragee(cl.grade_midterm, cl.grade_final)}}
+                        </span>
                     </td>
                 </tr>
             </tbody>

@@ -20,10 +20,6 @@ export const routes: Routes = [
                 path: 'classes',
                 loadChildren: () => import('./Modules/Classes/classes.routes').then(r=>classesRoute)
             },
-            // {
-            //     path: 'announcement',
-            //     loadChildren: () => import('./Modules/Announcement/announcement.routes').then(r=>announcementRoute)
-            // },
             {
                 path: 'messages',
                 loadChildren: () => import('./Modules/Messages/messages.routes').then(r=>messagesRoute)

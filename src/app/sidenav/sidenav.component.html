@@ -8,12 +8,16 @@
 </div>
 <mat-nav-list>
     <a mat-list-item
+    class="menu-item"
         *ngFor="let item of menuItems()" 
         [routerLink]="item.route"
         routerLinkActive="" #rla="routerLinkActive" [activated]="rla.isActive"
     >
 
-        <mat-icon matListItemIcon>{{item.icon}}</mat-icon>
+        <!-- <mat-icon matListItemIcon>{{item.icon}}</mat-icon> -->
+        <mat-icon matListItemIcon [matBadge]="item.unreadCount > 0 ? item.unreadCount : null" matBadgeColor="warn">
+            {{ item.icon }}
+          </mat-icon>
         <span style="font-family: Poppins; font-weight: 600;" matListItemTitle *ngIf="!sideNavCollapsed()">{{item.label}}</span>
         
     </a>

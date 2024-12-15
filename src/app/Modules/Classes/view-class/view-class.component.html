@@ -4,11 +4,12 @@
 
 <!-- Filter Buttons -->
 <div class="container mb-4">
-    <button 
+
+    <button
         [ngClass]="{'btn-primary': selectedFilter === 'All', 'btn-outline-primary': selectedFilter !== 'All'}"
         (click)="filterClasses('All')" class="btn">All Classes</button>
     
-    <button 
+    <button
         [ngClass]="{'btn-primary': selectedFilter === 'JHS', 'btn-outline-primary': selectedFilter !== 'JHS'}"
         (click)="filterClasses('JHS')" class="btn ms-2">Junior High School</button>
     

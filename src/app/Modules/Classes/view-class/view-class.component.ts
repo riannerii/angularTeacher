@@ -2,11 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { ConnectService } from '../../../connect.service';
 import { CommonModule } from '@angular/common';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-view-class',
   standalone: true,
-  imports: [RouterLink, CommonModule],
+  imports: [RouterLink, CommonModule, MatButtonModule],
   templateUrl: './view-class.component.html',
   styleUrls: ['./view-class.component.css'] // Corrected 'styleUrl' to 'styleUrls'
 })

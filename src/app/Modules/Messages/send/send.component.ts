@@ -24,6 +24,7 @@ export class SendComponent implements OnInit {
   uid: any;
   inputClicked: boolean = false;
   stupar: any;
+  private intervalId: any;
 
   constructor(private conn: ConnectService,
     private aroute: ActivatedRoute,
@@ -33,9 +34,23 @@ export class SendComponent implements OnInit {
 
   ngOnInit(): void {
     this.uid = localStorage.getItem('admin_id')
+
+    this.intervalId = setInterval(() => {
+      this.getMessages();
+    }, 10000)
+
+
     this.getMessages();
     this.getStudPar();
   }
+
+  ngOnDestroy(): void {
+    if (this.intervalId) {
+      clearInterval(this.intervalId);
+    }
+  }
+
+
   openDialog(): void {
     const dialogRef = this.dialog.open(ReplyComponent, {
       width:"500px",
@@ -81,6 +96,15 @@ export class SendComponent implements OnInit {
       this.stupar = result; 
     })
   }
+
+  markAsRead(sid: any){
+    this.conn.markAsRead(sid).subscribe((result: any) => {
+      console.log('Messages marked as read:', result.updated_count);
+    })
+
+    this.getMessages()
+  }
+
   openConvo(sid: any, uid:any) {
     this.conn.getConvo(sid, uid).subscribe((result: any) => {
       this.route.navigate(['/main/message/messagepage/messages/view', sid])
@@ -88,5 +112,7 @@ export class SendComponent implements OnInit {
       this.conversation = result;
     });
   }
+
+
   
 }
